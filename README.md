@@ -1,4 +1,4 @@
-# SpatialTranscriptomicsDataClustering
+# Spatial Transcriptomics Data Clustering
 
 Data sets used in this research:
 - Mouse Embryo from https://db.cngb.org/stomics/mosta/download/ (E9.5_E1S1.MOSTA, E9.5_E2S4.MOSTA & E10.5_E2S1.MOSTA)
