@@ -42,65 +42,6 @@ def calc_dissimilarity(vector_1, vector_2, metric):
         return scipy.spatial.distance.minkowski(vector_1, vector_2, p=3)
     elif metric == "cosine":
         return scipy.spatial.distance.cosine(vector_1, vector_2)
-
-def create_cdm_array(matrix_1, matrix_2, metric, cdm_array_name):
-    if os.path.exists(f"cdms_array/{cdm_array_name}"):
-        print(f"====== CDM array {cdm_array_name} already exists. Fetching it.")
-        return np.load(f"cdms_array/{cdm_array_name}")
-    else:
-        start_time = datetime.now()
-        print(f"====== Creating CDM array {cdm_array_name}. . .")
-        
-        n = len(matrix_1)
-        distance_array = np.zeros(n)
-
-        for i in range(0, n):
-            if i != 0 and i % CONST == 0:
-                print(f"Progress for creating cdm array: {i}/{n}")
-            distance_array[i] = calc_dissimilarity(matrix_1[i,:], matrix_2[i,:], metric)
-        
-        print(f"CDM matrix {cdm_array_name} created. Saving it . . .")
-        if not os.path.exists('cdms_array'):
-            os.makedirs('cdms_array')
-        np.save(f"cdms_array/{cdm_array_name}", distance_array)
-        
-        print(f"###### job completed in: {datetime.now() - start_time}")
-        return distance_array
-
-def create_cdm_matrix(matrix_1, matrix_2, metric, cdm_matrix_name):
-    if os.path.exists(f"cdm_matrices/{cdm_matrix_name}.npy"):
-        print(f"====== CDM matrix {cdm_matrix_name} already exists. Fetching it.")
-        return np.load(f"cdm_matrices/{cdm_matrix_name}.npy")
-    else:
-        start_time = datetime.now()
-        print(f"====== Creating CDM matrix {cdm_matrix_name}. . .")
-        
-        n = len(matrix_1)
-        distance_matrix = np.zeros(shape=(n, n))
-
-        for i, j in itertools.product(range(0, n), range(0, n)):
-            if i != 0 and i % CONST == 0 and j == 0:
-                print(f"Progress for creating cdm matrix: {i}/{n}")
-            distance_matrix[i,j] = calc_dissimilarity(matrix_1[i,:], matrix_2[j,:], metric)
-        
-        print(f"CDM matrix {cdm_matrix_name} created. Saving it . . .")
-        if not os.path.exists('cdm_matrices'):
-            os.makedirs('cdm_matrices')
-        np.save(f"cdm_matrices/{cdm_matrix_name}.npy", distance_matrix)
-        
-        print(f"###### job completed in: {datetime.now() - start_time}")
-        return distance_matrix
-
-def cdm_cell_diff(norm_adj_matrix_1, norm_adj_matrix_2, cell_data_name, num_of_pca_components, metric, cdm_matrix_name):
-    cdm_matrix = create_cdm_matrix(norm_adj_matrix_1, norm_adj_matrix_2, metric, cdm_matrix_name)
-    cdm_array = cdm_matrix.flatten()
-    cdm_array /= np.max(cdm_array)
-    plot_cdm_hist(cdm_array, cell_data_name, num_of_pca_components, "Number of cell pairs with specified dissimilarity", "cell difference", metric)
-
-def cdm_same_cell_diff(norm_adj_matrix_1, norm_adj_matrix_2, cell_data_name, num_of_pca_components, metric, cdm_array_name):
-    cdm_array = create_cdm_array(norm_adj_matrix_1, norm_adj_matrix_2, metric, cdm_array_name)
-    cdm_array /= np.max(cdm_array)
-    plot_cdm_hist(cdm_array, cell_data_name, num_of_pca_components, "Number of same cell pairs with specified dissimilarity", "same cell difference", metric)
     
 def cdm_value_diff(norm_adj_matrix_1, norm_adj_matrix_2, cell_data_name, num_of_pca_components, is_reduced_dict, cdm_matrix_name, color):
     if is_reduced_dict:
@@ -143,10 +84,6 @@ def create_and_visualize_cdm(cell_data, cell_data_name, num_of_pca_components, c
     
     if cdm_type == "value":
         cdm_value_diff(norm_adj_1, norm_adj_2, cell_data_name, num_of_pca_components, is_reduced_dict, cdm_name, color)
-    elif cdm_type == "cell":
-        cdm_cell_diff(norm_adj_1, norm_adj_2, cell_data_name, num_of_pca_components, metric, cdm_name)
-    else:
-        cdm_same_cell_diff(norm_adj_1, norm_adj_2, cell_data_name, num_of_pca_components, metric, cdm_name)
 
     print(f"###### job completed in: {datetime.now() - start_time}")
     
