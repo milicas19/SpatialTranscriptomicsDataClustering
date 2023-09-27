@@ -31,7 +31,7 @@ python3 plot_data_stats.py -mn coord_Dorsal_midbrain_cell_bin_1_adj_matrix coord
 </code>
 </pre>
 
-- using a number of PCA components to cover 80% pf the data variance
+- using a number of PCA components to cover 80% of the data variance
 <pre>
 <code>
 python3 create_and_visualize_cdms.py -dn  Dorsal_midbrain_cell_bin -pca 2300 3800 2300 3200 4000 -norm -h5ad -dorsal -col '#BEBADA' '#AAA3DE' '#9F95E8' '#9183F0' '#7F6FEC' -mod "stddev"
@@ -83,7 +83,7 @@ python3 cluster_data.py -dn E9.5_E1S1.MOSTA E9.5_E2S4.MOSTA E10.5_E2S1.MOSTA hum
 </code>
 </pre>
 
-- using a number of PCA components to cover 80% pf the data variance WITHOUT reduction:
+- using a number of PCA components to cover 80% of the data variance WITHOUT reduction:
 <pre>
 <code>
 python3 cluster_data.py -dn Dorsal_midbrain_cell_bin -dorsal -pca 2300 3800 2300 3200 4000 -h5ad
@@ -96,7 +96,7 @@ python3 cluster_data.py -dn E9.5_E1S1.MOSTA E9.5_E2S4.MOSTA E10.5_E2S1.MOSTA hum
 </code>
 </pre>
 
-- using a number of PCA components to cover 80% pf the data variance WITH reduction:
+- using a number of PCA components to cover 80% of the data variance WITH reduction:
 <pre>
 <code>
 python3 cluster_data.py -dn Dorsal_midbrain_cell_bin -dorsal -pca 2300 3800 2300 3200 4000 -h5ad -red
