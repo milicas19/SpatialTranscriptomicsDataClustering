@@ -6,7 +6,7 @@ Data sets used in this research:
 - Human Kideny and Mouse Kidney from https://cellxgene.cziscience.com/collections/8e880741-bf9a-4c8e-9227-934204631d2a (human_renal_medula_Puck_200205_13, human_cortex_kidney_Puck_200205_17 & mouse_kidney_Puck_191112_05)
 
 ## Task 1
-Investigating the correlation between the spatial coordinates of cells and their gene expressions
+Investigating the correlation between the spatial coordinates and gene expressions of the cells
 
 - using 40 PCA components
 <pre>
@@ -59,7 +59,7 @@ python3 plot_data_stats.py -mn coord_Dorsal_midbrain_cell_bin_1_adj_matrix coord
 </pre>
 
 ## Taks 2
-Analyzing the impact of cell spatial coordinates and gene expressions on cell type
+Analyzing the impact of spatial coordinates and gene expressions of cell on cell type
 
 - using 40 PCA components WITHOUT reduction:
 <pre>
